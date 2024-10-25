@@ -1,15 +1,15 @@
 using HWM14
+using Dates
 
-iyd = Int32(100)
-sec = Float32(43200.0)
-alt = Float32(300.0)
-glat = Float32(45.0)
-glon = Float32(-120.0)
-stl = Float32(12.0)
-f107a = Float32(150.0)
-f107 = Float32(150.0)
-ap = Float32[4.0, 4.0]
-w = Float32[0.0, 0.0]
+date = DateTime(2020,8,29, 12, 0, 0) # year, month, day, hour, minute, second
 
-HWM14.hwm14(iyd, sec, alt, glat, glon, stl, f107a, f107, ap, w)
+alt = 300.0 # altitude in km
+glat = 45.0 # geodedic latitude in degrees
+glon = -120.0 # geodedic longitude in degrees
+stl = 12.0 # not used
+f107a = 150.0 # not used
+f107 = 150.0 # not used
+ap = Float64[4.0, 4.0] # ap[1]: not used, ap[2]: 3hr ap index
+
+w = HWM14.hwm14(date, alt, glat, glon, stl, f107a, f107, ap)
 println(w)
