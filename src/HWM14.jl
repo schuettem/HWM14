@@ -3,7 +3,6 @@ module HWM14
 using Libdl
 using Dates
 
-# Load the shared library
 const libhwm14_path = joinpath(@__DIR__, "hwm14_fortran", "libhwm14.so")
 
 # Get total winds:

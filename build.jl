@@ -12,9 +12,12 @@ if !isfile(lib_path)
     # Determine the compiler
     FC = get(ENV, "FC", "gfortran")
 
-    # Compile the Fortran code
+    # Get the current working directory
+    current_dir = pwd()
+
+    # Compile the Fortran code with the SOURCE_DIR preprocessor directive
     cd(src_dir) do
-        run(`$FC -shared -fPIC -o $lib_path $fortran_source`)
+        run(`$FC -cpp -shared -fPIC -DSOURCE_DIR=\"$current_dir\" -o $lib_path $fortran_source`)
     end
 
     println("Fortran code compiled")

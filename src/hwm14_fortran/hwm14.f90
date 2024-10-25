@@ -1429,15 +1429,22 @@ subroutine findandopen(datafile,unitid)
 
     character(128)      :: datafile
     integer             :: unitid
-    character(128)      :: hwmpath
     logical             :: havefile
     integer             :: i
     integer :: ierr
-    character(len=256) :: cwd
     character(len=256) :: sourcefile
+    character(len=256) :: sourcedir
+    character(len=256) :: fullpath
 
-    ! Get the path of the current source file
-    sourcefile = __FILE__
+    ! Use the preprocessor directive to get the directory path
+#ifdef SOURCE_DIR
+    sourcedir = SOURCE_DIR
+#else
+    sourcedir = "unknown"
+#endif
+
+    ! Construct the full path to the data file
+    fullpath = trim(sourcedir) // '/src/hwm14_fortran/'
 
     i = index(datafile,'bin')
     if (i .eq. 0) then
@@ -1447,10 +1454,9 @@ subroutine findandopen(datafile,unitid)
         endif
         if (.not. havefile) then
             ! call get_environment_variable('HWMPATH',hwmpath) ! does not work
-            hwmpath = "./src/hwm14_fortran/"
-            inquire(file=trim(hwmpath)//'/'//trim(datafile),exist=havefile)
+            inquire(file=trim(fullpath)//'/'//trim(datafile),exist=havefile)
             if (havefile) open(unit=unitid, &
-                file=trim(hwmpath)//'/'//trim(datafile),status='old',form='unformatted')
+                file=trim(fullpath)//'/'//trim(datafile),status='old',form='unformatted')
         endif
         if (.not. havefile) then
             inquire(file='../Meta/'//trim(datafile),exist=havefile)
@@ -1464,10 +1470,9 @@ subroutine findandopen(datafile,unitid)
         endif
         if (.not. havefile) then
             ! call get_environment_variable('HWMPATH',hwmpath) ! does not work
-            hwmpath = "./src/hwm14_fortran/"
-            inquire(file=trim(hwmpath)//'/'//trim(datafile),exist=havefile)
+            inquire(file=trim(fullpath)//'/'//trim(datafile),exist=havefile)
             if (havefile) open(unit=unitid, &
-                file=trim(hwmpath)//'/'//trim(datafile),status='old',access='stream')
+                file=trim(fullpath)//'/'//trim(datafile),status='old',access='stream')
         endif
         if (.not. havefile) then
             inquire(file='../Meta/'//trim(datafile),exist=havefile)
@@ -1479,12 +1484,8 @@ subroutine findandopen(datafile,unitid)
     if (havefile) then
         return
     else
-        print *,"Can not find file ",trim(datafile)
-        ! print current directory
-        call getcwd(cwd, ierr)
-        print *,"Current directory is ",trim(cwd)
-        print *,"Source file is ",trim(sourcefile)
-        print *,"HMWPATH is ",trim(hwmpath)
+        print *, "Cannot find file ", trim(datafile)
+        print *, "Source directory is ", trim(fullpath)
         stop
     endif
 
