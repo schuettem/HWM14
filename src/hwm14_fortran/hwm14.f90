@@ -1434,6 +1434,10 @@ subroutine findandopen(datafile,unitid)
     integer             :: i
     integer :: ierr
     character(len=256) :: cwd
+    character(len=256) :: sourcefile
+
+    ! Get the path of the current source file
+    sourcefile = __FILE__
 
     i = index(datafile,'bin')
     if (i .eq. 0) then
@@ -1479,6 +1483,7 @@ subroutine findandopen(datafile,unitid)
         ! print current directory
         call getcwd(cwd, ierr)
         print *,"Current directory is ",trim(cwd)
+        print *,"Source file is ",trim(sourcefile)
         print *,"HMWPATH is ",trim(hwmpath)
         stop
     endif
