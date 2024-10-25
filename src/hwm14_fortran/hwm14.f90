@@ -1432,6 +1432,8 @@ subroutine findandopen(datafile,unitid)
     character(128)      :: hwmpath
     logical             :: havefile
     integer             :: i
+    integer :: ierr
+    character(len=256) :: cwd
 
     i = index(datafile,'bin')
     if (i .eq. 0) then
@@ -1474,6 +1476,9 @@ subroutine findandopen(datafile,unitid)
         return
     else
         print *,"Can not find file ",trim(datafile)
+        ! print current directory
+        call getcwd(cwd, ierr)
+        print *,"Current directory is ",trim(cwd)
         print *,"HMWPATH is ",trim(hwmpath)
         stop
     endif
