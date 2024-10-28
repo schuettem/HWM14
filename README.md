@@ -1,5 +1,5 @@
 # HWM14
-This package provides a Julia interface to the Horizontal Wind Model 2014 (HWM14), making it usable within the Julia programming environment. The HWM14 model is an empirical model of the Earth's horizontal wind fields, developed by the Naval Research Laboratory. For more information about the HWM14 model, visit the [CCMC HWM14 page](https://ccmc.gsfc.nasa.gov/models/HWM14~2014/).
+This package provides a Julia interface to the Horizontal Wind Model 2014 (HWM14), making it usable within the Julia programming environment. The HWM14 model is an empirical model of the Earth's horizontal wind fields. It was developed by a team of researchers led by Douglas Drob at the Naval Research Laboratory (NRL). The model was further supported and hosted by Jia Yue and Yuta Hozumi at the Community Coordinated Modeling Center (CCMC) at NASA's Goddard Space Flight Center. For more information about the HWM14 model, visit the [CCMC HWM14 page](https://ccmc.gsfc.nasa.gov/models/HWM14~2014/).
 
 ## Functions
 ### `hwm14`
