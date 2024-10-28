@@ -5,7 +5,7 @@ src_dir = joinpath(@__DIR__, "src/", "hwm14_fortran")
 lib_path = joinpath(src_dir, "libhwm14.so")
 fortran_source = joinpath(src_dir, "hwm14.f90")
 
-# Checl if the library exists
+# Check if the library exists
 if !isfile(lib_path)
     println("Compiling Fortran code ...")
 
