@@ -101,3 +101,6 @@ This package is licensed under the MIT License.
  - Emmert, J. T., et al. (2008), DWM07 global empirical model of upper thermospheric storm-induced disturbance winds, J. Geophys Res., 113, doi:10.1029/2008JA013541.
 
 For more information, visit the [CCMC HWM14 page](https://ccmc.gsfc.nasa.gov/models/HWM14~2014/).
+
+## Acknowledge
+We acknowledge the Community Coordinated Modeling Center (CCMC) at Goddard Space Flight Center for the use of the [horizontal wind model 2014 (HWM14)](https://ccmc.gsfc.nasa.gov/models/HWM14~2014/).
