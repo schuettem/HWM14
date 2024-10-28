@@ -5,17 +5,22 @@ using Dates
 
 const libhwm14_path = joinpath(@__DIR__, "hwm14_fortran", "libhwm14.so")
 
-# Get total winds:
+"""
+    Calculate the total wind
+    Calculate the quiet time winds: HWM14 with a negative value for ap[2]
+
+    iyd: Date in yyddd format (year and day of the year)
+    sec: Seconds since midnight UT
+    alt: Altitude in km
+    glat: Geodedic latitude in degrees
+    glon: Geodedic longitude in degrees
+    stl: not used
+    f107a: not used
+    f107: not used
+    ap: ap[1]: not used, ap[2]: 3hr ap index
+    Output: w[1]: meridional wind (m/s + northward), w[2]: zonal wind (m/s + eastward)
+"""
 function hwm14(iyd::Int64, sec::Float64, alt::Float64, glat::Float64, glon::Float64, stl::Float64, f107a::Float64, f107::Float64, ap::Array{Float64,1})
-    # date: Date and time in UTC
-    # alt: Altitude in km
-    # glat: Geodedic latitude in degrees
-    # glon: Geodedic longitude in degrees
-    # stl: not used
-    # f107a: not used
-    # f107: not used
-    # ap: ap[1]: not used, ap[2]: 3hr ap index
-    # Output: w[1]: meridional wind (m/s + northward), w[2]: zonal wind (m/s + eastward)
     libhwm14 = dlopen(libhwm14_path)
     hwm14_sym = Libdl.dlsym(libhwm14, :hwm14_)
 
@@ -28,16 +33,18 @@ function hwm14(iyd::Int64, sec::Float64, alt::Float64, glat::Float64, glon::Floa
     return w
 end
 
-# Get quiet time winds: HWM14 with a negative value for ap[2]
+"""
+    Calculate the disturbance wind in geographic coordinates
 
-# Get disturbance winds in geographic coordinates:
+    iyd: Date in yyddd format (year and day of the year)
+    sec: Seconds since midnight UT
+    alt: Altitude in km
+    glat: Geodedic latitude in degrees
+    glon: Geodedic longitude in degrees
+    ap: ap[1]: not used, ap[2]: 3hr ap index
+    Output: dw[1]: meridional wind (m/s + geo. northward), dw[2]: zonal wind (m/s + geo. eastward)
+"""
 function dwm07(iyd::Int64, sec::Float64, alt::Float64, glat::Float64, glon::Float64, ap::Array{Float64,1})
-    # date: Date and time in UTC
-    # alt: Altitude in km
-    # glat: Geodedic latitude in degrees
-    # glon: Geodedic longitude in degrees
-    # ap: ap[1]: not used, ap[2]: 3hr ap index
-    # Output: dw[1]: meridional wind (m/s + geo. northward), dw[2]: zonal wind (m/s + geo. eastward)
     libhwm14 = dlopen(libhwm14_path)
     dwm07_sym = Libdl.dlsym(libhwm14, :dwm07_)
 
@@ -49,12 +56,15 @@ function dwm07(iyd::Int64, sec::Float64, alt::Float64, glat::Float64, glon::Floa
     return dw
 end
 
-# Get disturbance winds in magnetic coordinates:
+"""
+    Calculate the disturbance wind in magnetic coordinates
+
+    mlt: Magnetic local time in hours
+    mlat: Magnetic latitude in degrees
+    kp: current 3hr KP index
+    Output: mmpwind: meridional wind (m/s + mag. northward), mzpwind: zonal wind (m/s + mag. eastward)
+"""
 function dwm07b(mlt::Float64, mlat::Float64, kp::Float64)
-    # mlt: Magnetic local time in hours
-    # mlat: Magnetic latitude in degrees
-    # kp: current 3hr KP index
-    # Output: mmpwind: meridional wind (m/s + mag. northward), mzpwind: zonal wind (m/s + mag. eastward)
     libhwm14 = dlopen(libhwm14_path)
     dwm07b_sym = Libdl.dlsym(libhwm14, :dwm07b_)
 
@@ -66,6 +76,12 @@ function dwm07b(mlt::Float64, mlat::Float64, kp::Float64)
     return [mmpwind[], mzpwind[]]
 end
 
+"""
+    Transforming iyd and sec to a DateTime object
+
+    iyd: Date in yyddd format (year and day of the year)
+    sec: Seconds since midnight UT
+"""
 function iydsec2datetime(iyd::Int64, sec::Float64)
     # Calculate the year
     yy = div(iyd, 1000)
@@ -91,6 +107,13 @@ function iydsec2datetime(iyd::Int64, sec::Float64)
     return date
 end
 
+"""
+    Transforming a DateTime object to iyd and sec
+
+    date: DateTime object
+    iyd: Date in yyddd format (year and day of the year)
+    sec: Seconds since midnight UT
+"""
 function datetime2iydsec(date::DateTime)
     # Calculate the year and day of the year
     yyyy = Dates.year(date)
