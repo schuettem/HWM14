@@ -11,6 +11,7 @@ fortran_source = "hwm14.f90"
 # Check if the library exists
 current_dir = pwd()
 @info "Current directory: $current_dir"
+@info "Source directory: $src_dir"
 cd("..")
 cd("src/hwm14_fortran")
 if !isfile(library)
