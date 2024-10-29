@@ -11,10 +11,11 @@ fortran_source = joinpath(src_dir, "hwm14.f90")
 
 # Check if the library exists
 if !isfile(lib_path)
-    println("Compiling Fortran code ...")
+    @info "Compiling Fortran code ..."
 
     # Determine the compiler
     FC = get(ENV, "FC", "gfortran")
+    @info "Fortran compiler: $FC"
 
     # Get the current working directory
     current_dir = pwd()
@@ -24,7 +25,7 @@ if !isfile(lib_path)
         run(`$FC -cpp -shared -fPIC -DSOURCE_DIR=\"$current_dir\" -o $lib_path $fortran_source`)
     end
 
-    println("Fortran code compiled")
+    @info "Fortran code compiled"
 else
-    println("Fortran library already exists")
+    @info "Fortran library already exists"
 end
