@@ -1434,7 +1434,6 @@ subroutine findandopen(datafile,unitid)
     integer :: ierr
     character(len=256) :: sourcefile
     character(len=256) :: sourcedir
-    character(len=256) :: fullpath
 
     ! Use the preprocessor directive to get the directory path
 #ifdef SOURCE_DIR
@@ -1442,9 +1441,6 @@ subroutine findandopen(datafile,unitid)
 #else
     sourcedir = "unknown"
 #endif
-
-    ! Construct the full path to the data file
-    fullpath = trim(sourcedir) // '/src/hwm14_fortran/'
 
     i = index(datafile,'bin')
     if (i .eq. 0) then
@@ -1454,9 +1450,9 @@ subroutine findandopen(datafile,unitid)
         endif
         if (.not. havefile) then
             ! call get_environment_variable('HWMPATH',hwmpath) ! does not work
-            inquire(file=trim(fullpath)//'/'//trim(datafile),exist=havefile)
+            inquire(file=trim(sourcedir)//'/'//trim(datafile),exist=havefile)
             if (havefile) open(unit=unitid, &
-                file=trim(fullpath)//'/'//trim(datafile),status='old',form='unformatted')
+                file=trim(sourcedir)//'/'//trim(datafile),status='old',form='unformatted')
         endif
         if (.not. havefile) then
             inquire(file='../Meta/'//trim(datafile),exist=havefile)
@@ -1470,9 +1466,9 @@ subroutine findandopen(datafile,unitid)
         endif
         if (.not. havefile) then
             ! call get_environment_variable('HWMPATH',hwmpath) ! does not work
-            inquire(file=trim(fullpath)//'/'//trim(datafile),exist=havefile)
+            inquire(file=trim(sourcedir)//'/'//trim(datafile),exist=havefile)
             if (havefile) open(unit=unitid, &
-                file=trim(fullpath)//'/'//trim(datafile),status='old',access='stream')
+                file=trim(sourcedir)//'/'//trim(datafile),status='old',access='stream')
         endif
         if (.not. havefile) then
             inquire(file='../Meta/'//trim(datafile),exist=havefile)
@@ -1485,7 +1481,7 @@ subroutine findandopen(datafile,unitid)
         return
     else
         print *, "Cannot find file ", trim(datafile)
-        print *, "Source directory is ", trim(fullpath)
+        print *, "Source directory is ", trim(sourcedir)
         stop
     endif
 

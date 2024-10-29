@@ -18,4 +18,4 @@ Libdl = "1.11.0"
 Test = "1.11.0"
 
 [build]
-command = "build.jl"
+command = "deps/build.jl"
