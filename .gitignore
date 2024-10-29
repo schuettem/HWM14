@@ -4,3 +4,4 @@
 
 *.mod
 *.so
+/deps/build.log
