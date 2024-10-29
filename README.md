@@ -104,5 +104,5 @@ This package is licensed under the MIT License.
 
 For more information, visit the [CCMC HWM14 page](https://ccmc.gsfc.nasa.gov/models/HWM14~2014/).
 
-## Acknowledge
+## Acknowledgements
 We acknowledge the Community Coordinated Modeling Center (CCMC) at Goddard Space Flight Center for the use of the [horizontal wind model 2014 (HWM14)](https://ccmc.gsfc.nasa.gov/models/HWM14~2014/).
