@@ -1444,7 +1444,7 @@ subroutine findandopen(datafile,unitid)
 #endif
 
     ! Construct the full path to the data file
-    fullpath = trim(sourcedir) // '/src/nrl_ccmc_hwm14/'
+    fullpath = trim(sourcedir) // '/src/hwm14_fortran/'
 
     i = index(datafile,'bin')
     if (i .eq. 0) then
