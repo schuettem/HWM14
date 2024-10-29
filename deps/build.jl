@@ -3,7 +3,7 @@
 # Define the paths
 dir = @__DIR__
 dir = split(dir, "/")
-dir = joinpath(dir[1:end-1]...)
+dir = "/" * joinpath(dir[1:end-1]...)
 src_dir = joinpath(dir, "src", "hwm14_fortran")
 library = "libhwm14.so"
 fortran_source = "hwm14.f90"
