@@ -3,7 +3,7 @@ module HWM14
 using Libdl
 using Dates
 
-const libhwm14_path = joinpath(@__DIR__, "NRL_CCMC_HWM14", "libhwm14.so")
+const libhwm14_path = joinpath(@__DIR__, "nrl_ccmc_hwm14", "libhwm14.so")
 
 """
     Calculate the total wind
