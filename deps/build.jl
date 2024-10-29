@@ -19,13 +19,10 @@ if !isfile(library)
     FC = get(ENV, "FC", "gfortran")
     @info "Fortran compiler: $FC"
 
-    write(log, "Compiling Fortran code...\n")
     # Compile the Fortran code with the SOURCE_DIR preprocessor directive
     run(`$FC -cpp -shared -fPIC -DSOURCE_DIR=\"$src_dir\" -o $library $fortran_source`)
-    write(log, "Compilation complete.\n")
 
     @info "Fortran code compiled"
 else
-    write(log, "Source directory already exists. Skipping compilation.\n")
     @info "Source directory already exists. Skipping compilation."
 end
