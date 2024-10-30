@@ -3,6 +3,17 @@ This package provides a Julia interface to the Horizontal Wind Model 2014 (HWM14
 
 Note: This project is not affiliated with NASA, NRL or CCMC in any way.
 
+## Installation
+
+1. Open julia and enter the package manager (Pkg) mode by pressing `]`.
+2. Use the `add` command to install the package directly from GitHub:
+   ```julia
+   add <url>
+   ```
+
+Note: During the installation the fortran Code should be build automatically.
+In case you encounter an error like "libhwm14.so" is missing, you have to execute the build.jl file in the deps folder.
+
 ## Functions
 ### `hwm14`
 Calculates the total wind.
