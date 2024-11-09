@@ -4,10 +4,12 @@ This package provides a Julia interface to the Horizontal Wind Model 2014 (HWM14
 Note: This project is not affiliated with NASA, NRL or CCMC in any way.
 
 ## Prerequisites
-During the installation the fortran Code should be build automatically via `gfortran`. If `gfortran` is not available, it will be installed via:
+During the installation the fortran Code should be build automatically via `gfortran`.
+If `gfortran` is not available, it will be installed via:
  - linux (Debian based): `sudo apt-get install -y gfortran`
  - macOS: `brew install gfortran`
  - windows: `choco install mingw`
+
 Make sure the respective package manager is installed.
 In case you encounter an error, install `gfortran` and execute the build.jl file in the deps folder manually.
 
